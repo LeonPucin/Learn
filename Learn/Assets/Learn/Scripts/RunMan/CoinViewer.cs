@@ -10,7 +10,6 @@ public class CoinViewer : MonoBehaviour
     private void Awake()
     {
         _text = GetComponent<TextMeshProUGUI>();
-        UpdateText(_coinManager.AmountCoin);
     }
 
     private void OnEnable()
@@ -23,7 +22,7 @@ public class CoinViewer : MonoBehaviour
         _coinManager.OnValueChanged -= UpdateText;
     }
 
-    private void UpdateText(int newValue)
+    public void UpdateText(int newValue)
     {
         _text.text = newValue.ToString();
     }

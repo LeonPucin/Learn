@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class CoinManager : MonoBehaviour
 {
@@ -12,10 +14,13 @@ public class CoinManager : MonoBehaviour
         {
             _amountCoin = value;
             OnValueChanged?.Invoke(AmountCoin);
+            var newValue = new IntDto(AmountCoin);
+            //_onValueChangedUnity?.Invoke(newValue);
         }
     }
 
-    public event Action<int> OnValueChanged;
+    public event Action<int> OnValueChanged; 
+    public UnityEvent<IntDto> _onValueChangedUnity;
 
     private void Start()
     {

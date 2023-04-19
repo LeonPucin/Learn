@@ -1,15 +1,18 @@
+using System.IO;
 using UnityEngine;
 
-public class SaveExample : MonoBehaviour
+
+public class SaveLiteExample : MonoBehaviour
 {
     [SerializeField] private GameObject _cube;
-    
-    private Storage _storage;
+
+    [SerializeField] private string _fileName;
+    [SerializeField] private string _path;
     private GameData _gameData;
 
     private void Awake()
     {
-        _storage = new Storage();
+        _path = Path.Combine(Application.dataPath, "Saves", _fileName);
         Load();
     }
 
@@ -30,14 +33,17 @@ public class SaveExample : MonoBehaviour
     {
         _gameData.position = _cube.transform.position;
         _gameData.rotation = _cube.transform.rotation;
-        
-        _storage.Save(_gameData);
+
+        BinarySerializer.Serialize(_path, _gameData);
         Debug.Log("Game saved");
     }
 
     private void Load()
     {
-        _gameData = (GameData)_storage.Load(new GameData());
+        if (File.Exists(_path))
+        {
+            _gameData = BinarySerializer.Deserialize<GameData>(_path);
+        }
 
         _cube.transform.position = _gameData.position;
         _cube.transform.rotation = _gameData.rotation;

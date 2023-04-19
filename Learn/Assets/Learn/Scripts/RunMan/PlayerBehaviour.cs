@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    [SerializeField] private PlayerMove _playerMove;
+    [SerializeField] private InputController _playerMove;
     [SerializeField] private PreFinishBehavior _preFinishBehavior;
     [SerializeField] private Animator _animator;
     
